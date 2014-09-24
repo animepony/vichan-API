@@ -36,6 +36,8 @@ Questions? Please e-mail [vichanapi@6irc.net](mailto:vichanapi@6irc.net).
 
 Incompatibilities with 4chan API are marked with (!).
 
+Not yet implemented features, but marked for implementation, are marked with (ni).
+
 Custom vichan additions, as compared to 4chan API, are marked with (NEW).
 
 | **attribute**   | **value**      | **description**      | **possible values**                        | **example value**     |
@@ -44,12 +46,12 @@ Custom vichan additions, as compared to 4chan API, are marked with (NEW).
 | `resto`         | `integer`      | Reply to             | 0 (is a thread OP), 1-9999999999999        | `0`                   |
 | `sticky`        | `integer`      | Stickied thread?     | 0 (no), 1 (yes)                            | `1`                   |
 | `closed`        | `integer`      | Closed thread?       | 0 (no), 1 (yes)                            | `1`                   |
-| `archived`      | `integer`      | Archived thread?     | 0 (no), 1 (yes)                            | `1`                   |
-| `now`           | `string`       | Date and time        | MM\/DD\/YY(Day)HH:MM (:SS on some boards), EST/EDT timezone  | `08\/08\/12(Wed)01:11`|
+| `archived`      | does not exist here (!) |
+| `now`           | does not exist here (!) |
 | `time`          | `integer`      | UNIX timestamp       | UNIX timestamp                             | `1344570123`          |
 | `name`          | `string`       | Name                 | text                                       | `moot`                |
 | `trip`          | `string`       | Tripcode             | text (format: !tripcode!!securetripcode)   | `!Ep8pui8Vw2`         |
-| `id`            | `string`       | ID                   | text (8 characters), Mod, Admin, Developer | `Admin`               |
+| `id`            | `string` (ni)  | ID                   | text (8 characters), Mod, Admin, Developer | `Admin`               |
 | `capcode`       | `string`       | Capcode              | none, mod, admin, admin_highlight, developer | `admin`             |
 | `country`       | `string`       | Country code         | text (2 characters, ISO 3166-1 alpha-2), XX (unknown) | `XX`       |
 | `country_name`  | `string`       | Country name         | text                                       | `Unknown`             |
@@ -59,21 +61,21 @@ Custom vichan additions, as compared to 4chan API, are marked with (NEW).
 | `filename`      | `string`       | Original filename    | text                                       | `OPisa`               |
 | `ext`           | `string`       | File extension       | .jpg, .png, .gif, .pdf, .swf, .webm        | `.jpg`                |
 | `fsize`         | `integer`      | File size            | 1-8388608                                  | `2500`                |
-| `md5`           | `string`       | File MD5             | text (24 character, packed base64 MD5 hash)| `NOetrLVnES3jUn1x5ZPVAg==` |
+| `md5`           | does not exist here (!) |
 | `w`             | `integer`      | Image width          | 1-10000                                    | `500`                 |
 | `h`             | `integer`      | Image height         | 1-10000                                    | `500`                 |
 | `tn_w`          | `integer`      | Thumbnail width      | 1-250                                      | `250`                 |
 | `tn_h`          | `integer`      | Thumbnail height     | 1-250                                      | `250`                 |
-| `filedeleted`   | `integer`      | File deleted?        | 0 (no), 1 (yes)                            | `0`                   |
-| `spoiler`       | `integer`      | Spoiler image?       | 0 (no), 1 (yes)                            | `0`                   |
-| `custom_spoiler`| `integer`      | Custom spoilers?     | 1-99                                       | `3`                   |
+| `filedeleted`   | `integer` (ni) | File deleted?        | 0 (no), 1 (yes)                            | `0`                   |
+| `spoiler`       | `integer` (ni) | Spoiler image?       | 0 (no), 1 (yes)                            | `0`                   |
+| `custom_spoiler`| does not exist here (!) |
 | `omitted_posts` | `integer`      | # replies omitted    | 1-10000                                    | `33`                  |
 | `omitted_images`| `integer`      | # image replies omitted | 1-10000                                 | `21`                  |
 | `replies`       | `integer`      | # replies total      | 0-99999                                    | `231`                 |
 | `images`        | `integer`      | # images total       | 0-99999                                    | `132`                 |
-| `bumplimit`     | `integer`      | Bump limit met?      | 0 (no), 1 (yes)                            | `0`                   |
-| `imagelimit`    | `integer`      | Image limit met?     | 0 (no), 1 (yes)                            | `1`                   |
-| `capcode_replies` | `array`      | Capcode user replies?| array of capcode type and post IDs         | `{"admin":[1234,1267]}` |
+| `bumplimit`     | does not exist here (!) |
+| `imagelimit`    | does not exist here (!) |
+| `capcode_replies` | does not exist here (!) |
 | `last_modified` | `integer`      | Time when last modified | UNIX timestamp                          | `1344571233`          |
 | `tag`           | does not exist here (!) |
 | `semantic_url`  | does not exist here (!) |
@@ -90,30 +92,17 @@ Custom vichan additions, as compared to 4chan API, are marked with (NEW).
 `filename` (only displays when image uploaded)  
 `ext` (only displays when image uploaded)  
 `fsize` (only displays when image uploaded)  
-`md5` (only displays when image uploaded)  
 `w` (only displays when image uploaded)  
 `h` (only displays when image uploaded)  
 `tn_w` (only displays when image uploaded)  
 `tn_h` (only displays when image uploaded)  
 `filedeleted` (only displays when image uploaded)  
 `spoiler` (only displays when image uploaded)  
-`custom_spoiler` (only display on OPs, only displays when board has custom spoiler images)  
 `omitted_posts` (only displays on OPs on index pages)  
 `omitted_images` (only displays on OPs on index pages)  
 `replies` (only displays on OPs)  
 `images` (only displays on OPs)  
-`bumplimit` (only displays on OPs when true)  
-`imagelimit` (only displays on OPs when true)  
-`capcode_replies` (only displays on /q/ when there are capcode user replies)  
 `last_modified` (only displayed in threads.json, and includes replies, deletions, and sticky/closed changes)  
-`tag` (only displays on /f/)  
-`semantic_url` (only displays on OPs)
-
-**Note about custom spoilers:**  
-`custom_spoiler` describes the number of custom spoilers that exist for the specified board. If the number is `4`, it means that you can choose anywhere from 1 to 4. 
-For our imageboard pages, the custom spoiler images changes every time a new post is made. If you are writing a browser add-on with auto-update 
-functionality, you should first check the HTML to see if a custom spoiler has been posted, and use the same number, so when new spoiler posts come in, they match the pre-existing ones. 
-If there are no custom spoilers already in a thread, you can just random whatever you'd like, since there is no need to match pre-existing ones.
 
 ### Where are the files? ###
 
