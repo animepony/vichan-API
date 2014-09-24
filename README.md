@@ -1,53 +1,42 @@
-4chan API
-=========
+vichan API
+==========
 
 ## Welcome ##
 
-Welcome to 4chan's read-only JSON API documentation.
+Welcome to vichan read-only JSON API documentation.
+
+This API works at every vichan-based board, for example 8chan.co, and at a few Tinyboard-based ones (ask your admin to enable it).
 
 JSON representations of threads and indexes are exposed at the following URLs:
 
-http(s)://a.4cdn.org/`board`/thread/`threadnumber`.json  
-http(s)://a.4cdn.org/`board`/`pagenumber`.json (1 is main index)
+http(s):///`siteurl`/`board`/res/`threadnumber`.json  
+http(s)://`siteurl`/`board`/`pagenumber`.json (0 is main index, unlike on 4chan, which is 1-based)
 
 A JSON representation of all thread OPs (and the replies shown on indexes) from an individual board can be found at the following URL:
 
-http(s)://a.4cdn.org/`board`/catalog.json
+http(s)://`siteurl`/`board`/catalog.json
 
 And just the thread IDs, their modification times, and respective pages can be found here:
 
-http(s)://a.4cdn.org/`board`/threads.json
+http(s)://`siteurl`/`board`/threads.json
 
-A list of boards is exposed at the following URL:
+A list of boards is exposed at the following URL: (nb. this is not yet implemented, it may work on individual sites)
 
-http(s)://a.4cdn.org/boards.json
+http(s)://`siteurl`/boards.json
 
-CORS is supported with an origin of http(s)://boards.4chan.org
+CORS may be supported, on discretion of board owners.
 
 Supported request methods are: GET, HEAD, OPTIONS
 
-Questions? Please e-mail [api@4chan.org](mailto:api@4chan.org).
+Questions? Please e-mail [vichanapi@6irc.net](mailto:vichanapi@6irc.net).
 
-*This guide was last updated August 12, 2014.*
-
-### API Rules ###
-
-1. Do not make more than one request per second.
-2. Thread updating should be set to a minimum of 10 seconds, preferably higher.
-3. Use If-Modified-Since when doing your requests.
-4. Make API requests using the same protocol as the app. Only use SSL when a user is accessing your app over HTTPS.
-5. More to come later...
-
-### API Terms of Service ###
-
-1. You may not use "4chan" in the title of your application, product, or service.
-2. You may not use the 4chan name, logo, or brand to promote your application, product, or service.
-3. You must disclose the source of the information shown by your application, product, or service as 4chan, and provide a link.
-4. You may not market your application, product, or service as being "official" in any way.
-5. You may not clone 4chan or its existing features/functionality. Example: Don't suck down our JSON, host it elsewhere, and throw ads around it.
-6. These terms are subject to change without notice.
+*This guide was last updated September 24, 2014.*
 
 ### Posts Object ####
+
+Incompatibilities with 4chan API are marked with (!).
+
+Custom vichan additions, as compared to 4chan API, are marked with (NEW).
 
 | **attribute**   | **value**      | **description**      | **possible values**                        | **example value**     |
 |:----------------|:---------------|:---------------------|:-------------------------------------------|:----------------------|
@@ -66,7 +55,7 @@ Questions? Please e-mail [api@4chan.org](mailto:api@4chan.org).
 | `country_name`  | `string`       | Country name         | text                                       | `Unknown`             |
 | `sub`           | `string`       | Subject              | text                                       | `This is a subject`   |
 | `com`           | `string`       | Comment              | text (includes escaped HTML)               | `This is a comment`   |
-| `tim`           | `integer`      | Renamed filename     | UNIX timestamp + microseconds              | `1344402680740`       |
+| `tim`           | `string` (!)   | Renamed filename     | UNIX timestamp + microseconds              | `1344402680740`       |
 | `filename`      | `string`       | Original filename    | text                                       | `OPisa`               |
 | `ext`           | `string`       | File extension       | .jpg, .png, .gif, .pdf, .swf, .webm        | `.jpg`                |
 | `fsize`         | `integer`      | File size            | 1-8388608                                  | `2500`                |
@@ -86,8 +75,8 @@ Questions? Please e-mail [api@4chan.org](mailto:api@4chan.org).
 | `imagelimit`    | `integer`      | Image limit met?     | 0 (no), 1 (yes)                            | `1`                   |
 | `capcode_replies` | `array`      | Capcode user replies?| array of capcode type and post IDs         | `{"admin":[1234,1267]}` |
 | `last_modified` | `integer`      | Time when last modified | UNIX timestamp                          | `1344571233`          |
-| `tag`           | `string`       | Thread tag           | text                                       | `Loop`                |
-| `semantic_url`  | `string`       | Thread URL slug      | text                                       | `daily-programming-thread` |
+| `tag`           | does not exist here (!) |
+| `semantic_url`  | does not exist here (!) |
 
 **Note the following attributes are optional:**  
 `sticky` `closed` `archived` (only displays on OPs when true)  
@@ -128,28 +117,20 @@ If there are no custom spoilers already in a thread, you can just random whateve
 
 ### Where are the files? ###
 
-Boards: http(s)://boards.4chan.org/`board`/  
-Indexes: http(s)://boards.4chan.org/`board`/`[1-10]` (# of pages varies per board, directory root is page 1)  
+Boards: http(s)://`siteurl`/`board`/  
+Indexes: http(s)://`siteurl`/`board`/`[1-10]`.html (# of pages varies per board, directory root is page 1)  
 
-Threads: http(s)://boards.4chan.org/`board`/thread/`resto`  
-Replies: http(s)://boards.4chan.org/`board`/thread/`resto`#p`no`  
+Threads: http(s)://`siteurl`/`board`/res/`resto`.html  
+Replies: http(s)://`siteurl`/`board`/res/`resto`.html#p`no`  
 
-Images: http(s)://i.4cdn.org/`board`/`tim`.`ext`  
-Thumbnails: http(s)://t.4cdn.org/`board`/`tim`s.jpg  
+Images: http(s)://`siteurl`/`board`/src/`tim`.`ext`  
+Thumbnails: http(s)://`siteurl`/`board`/src/`tim`s.jpg  
 
-Spoiler image: http(s)://s.4cdn.org/image/spoiler.png  
-Custom spoilers: http(s)://s.4cdn.org/image/spoiler-`board``custom_spoiler`.png  
+Spoiler image: http(s)://`siteurl`/static/spoiler.png  
 
-Closed thread icon: http(s)://s.4cdn.org/image/closed.gif  
-Sticky thread icon: http(s)://s.4cdn.org/image/sticky.gif  
-Admin capcode icon: http(s)://s.4cdn.org/image/adminicon.gif  
-Mod capcode icon: http(s)://s.4cdn.org/image/modicon.gif  
-Developer capcode icon: http(s)://s.4cdn.org/image/developericon.gif  
-File deleted (for OPs): http(s)://s.4cdn.org/image/filedeleted.gif  
-File deleted (for replies): http(s)://s.4cdn.org/image/filedeleted-res.gif  
+File deleted: http(s)://`siteurl`/static/deleted.png 
 
-Country flags: http(s)://s.4cdn.org/image/country/`country`.gif  
-/pol/ country flags: http(s)://s.4cdn.org/image/country/troll/`country`.gif  
+Country flags: http(s)://`siteurl`/static/flags/`country`.png
 
 ### Examples ###
 
