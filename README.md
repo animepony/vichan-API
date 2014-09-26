@@ -61,7 +61,7 @@ Custom vichan additions, as compared to 4chan API, are marked with (NEW).
 | `filename`      | `string`       | Original filename    | text                                       | `OPisa`               |
 | `ext`           | `string`       | File extension       | .jpg, .png, .gif, .pdf, .swf, .webm        | `.jpg`                |
 | `fsize`         | `integer`      | File size            | 1-8388608                                  | `2500`                |
-| `md5`           | does not exist here (!) |
+| `md5`           | `string`       | File MD5             | text (24 character, packed base64 MD5 hash)| `NOetrLVnES3jUn1x5ZPVAg==` |
 | `w`             | `integer`      | Image width          | 1-10000                                    | `500`                 |
 | `h`             | `integer`      | Image height         | 1-10000                                    | `500`                 |
 | `tn_w`          | `integer`      | Thumbnail width      | 1-250                                      | `250`                 |
