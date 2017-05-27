@@ -1,11 +1,11 @@
-vichan API
+NPFchan API
 ==========
 
 ## Welcome ##
 
-Welcome to vichan read-only JSON API documentation.
+Welcome to NPFchan's read-only JSON API documentation.
 
-This API works at every vichan-based board, for example 8chan.co, and at a few Tinyboard-based ones (ask your admin to enable it).
+This API works at every vichan/NPFchan-based board, for example 8ch.net, and at a few Tinyboard-based ones (ask your admin to enable it).
 
 JSON representations of threads and indexes are exposed at the following URLs:
 
@@ -28,9 +28,7 @@ CORS may be supported, on discretion of board owners.
 
 Supported request methods are: GET, HEAD, OPTIONS
 
-Questions? Please e-mail [vichanapi@6irc.net](mailto:vichanapi@6irc.net).
-
-*This guide was last updated September 24, 2014.*
+*This guide was last updated May 26, 2017.*
 
 ### Posts Object ####
 
@@ -38,7 +36,7 @@ Incompatibilities with 4chan API are marked with (!).
 
 Not yet implemented features, but marked for implementation, are marked with (ni).
 
-Custom vichan additions, as compared to 4chan API, are marked with (NEW).
+Custom NPFchan/vichan additions, as compared to 4chan API, are marked with (NEW).
 
 | **attribute**   | **value**      | **description**      | **possible values**                        | **example value**     |
 |:----------------|:---------------|:---------------------|:-------------------------------------------|:----------------------|
